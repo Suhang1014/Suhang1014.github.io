@@ -1,0 +1,1 @@
+{"schema": {"fields":[{"name":"country","type":"string"},{"name":"movie_title","type":"integer"}],"primaryKey":["country"],"pandas_version":"0.20.0"}, "data": [{"country":"Australia","movie_title":2},{"country":"Canada","movie_title":1},{"country":"France","movie_title":3},{"country":"Spain","movie_title":1},{"country":"UK","movie_title":11},{"country":"USA","movie_title":74}]}

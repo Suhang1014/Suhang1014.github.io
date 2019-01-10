@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Movie Data Analysis Story</title>
+    <meta name="author" content="Matthew Howell" />
+    <meta name="description" content="fullPage continuous scrolling demo." />
+    <meta name="keywords"  content="fullpage,jquery,demo,scroll,loop,continuous" />
+    <meta name="Resource-type" content="Document" />
+
+
+    <link rel="stylesheet" type="text/css" href="js/fullpage/fullpage.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+    <!--[if IE]>
+        <script type="text/javascript">
+             var console = { log: function() {} };
+        </script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="js/fullpage/fullpage.js"></script>
+    <script type="text/javascript" src="js/fullpage/fullpage.extensions.min.js"></script>
+
+    <script type="text/javascript" src="js/echarts/echarts.js"></script>
+    <script type="text/javascript" scr="js/echarts/config.js"></script>
+    <script type="text/javascript" src="js/echarts/world.js"></script>
+    <script type="text/javascript" src="js/echarts/echarts-wordcloud.min.js"></script>
+    <script type="text/javascript" src="js/echarts/shine.js"></script>
+    <script type="text/javascript" src="js/echarts/ecStat.js"></script>
+
+    <script type="text/javascript">
+        //using document ready...
+        $(document).ready(function(){
+
+            //initialising fullpage.js in the jQuery way
+            $('#fullpage').fullpage({
+                // sectionsColor: ['#ff5f45', '#0798ec', '#fc6c7c', '#fec401'],
+                //Navigation
+                anchors: ['1stPage','2ndPage','3rdPage','4thPage','5thPage','6thPage'],
+                menu: '#menu',
+                lazyLoad: true,
+                navigation: true,
+                navigationPosition: 'right',
+                slidesNavigation: true,
+
+                //Scrolling
+                scrollingSpeed: 600,
+                autoScrolling: true,
+                resetSliders: true,
+                easingcss3: 'cubic-bezier(0.175, 0.885, 0.320, 1.275)',
+
+                //Accessibility
+                keyboardScrolling: true,
+            });
+
+            // calling fullpage.js methods using jQuery
+            $('#moveSectionUp').click(function(e){
+                e.preventDefault();
+                $.fn.fullpage.moveSectionUp();
+            });
+
+            $('#moveSectionDown').click(function(e){
+                e.preventDefault();
+                $.fn.fullpage.moveSectionDown();
+            });
+        });
+    </script>
+
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div class="nav">
+    <ul id="menu">
+        <li data-menuanchor="1stPage" class="active"><a href="#1stPage">First Page</a></li>
+        <li data-menuanchor="2ndPage"><a href="#2ndPage">Second Page</a></li>
+        <li data-menuanchor="3rdPage"><a href="#3rdPage">Third Page</a></li>
+        <li data-menuanchor="4thPage"><a href="#4thPage">Fourth Page</a></li>
+        <li data-menuanchor="5thPage"><a href="#5thPage">Fifth Page</a></li>
+        <li data-menuanchor="6thPage"><a href="#6thPage">Sixth Page</a></li>
+    </ul>
+    <div class="personal_info">
+        <p>Hang Su</p>
+        <p>ID:30005019</p>
+    </div>
+</div>
+
+<div id="actions">
+    <a id="moveSectionUp" href="#">Previous Page</a>
+    <a id="moveSectionDown" href="#">Next Page</a>
+</div>
+
+
+<div id="fullpage">
+    <div class="section active" id="setction1">
+        <div class="intro">
+            <h1>What kinds of movies are more likely to get high score ?</h1>
+            <br/>
+            <div class="intro_content">
+                <p>In our daily life, there are lots of movies released around the world every day.</p>
+                <p>However, it is hard to know if it of high quality or low quality unless it has been released for a long time.</p>
+                <p>But watching the excellent movies the first time can be the best experience.</p>
+                <p>In this data story, it analyzes 5000 movies data from IMDB and then gives some common features of high score English movies
+                    that released between 2010-2016, which may help people to predict the quality of new movies before releasing.
+                </p>
+                <p>Now you can move to the next page to see the visualization charts of this story!</p>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section2">
+        <div class="chart_wrapper">
+            <div class="chart_container">
+                <div id="year_score"></div>
+            </div>
+            <div class="story_container">
+                <p>
+                    Think about the movies you watched recent years, you will find that although more and more movies are produced in a year,
+                    it is harder to find a movie with high quality.
+                    The line chart on your left hand shows the average IMDB score of movies from 1916 to 2016.
+                </p>
+                <br/>
+                <p>
+                   It is clear that the average score slightly decreased within these years.
+                    This indicates that the quality of the movies is declining year by year
+                    or the audience is becoming more and more strict with the quality.
+                </p>
+                <br/>
+                <p>
+                    Based on this, no matter which reason is right, it is helpful to conclude some common features of high-quality movies.
+                </p>
+                <br/>
+                <p>
+                    <span>Interaction Tips: 1. The toolbar below can set the time range of data to display on the chart.
+                        2. Use the toolbox in the top right corner to zoom in on some data, switch chart types or download this chart as images.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section3">
+        <div class="chart_wrapper">
+            <div class="chart_container">
+                <div id="word_cloud"></div>
+            </div>
+            <div class="story_container">
+                <p class="wordCloud_des">
+                    The words cloud on the left shows the frequency of movie genres occurred among all these high score movies
+                    (A movie may belong to 1-3 genres).
+                </p>
+                <br/>
+                <p>
+                    By comparing the size of these words, we can find that DRAMA, ADVENTURE and COMEDY movies are more likely  to get high scores.
+                </p>
+                <br/>
+                <p>
+                    <span>Interaction Tips: 1. You can put your mouse on the word to check the count of a certain genre.
+                    2. Use the toolbox in the top right corner to check the data used in this chart or download this chart as images.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section4">
+        <div class="chart_wrapper">
+            <div class="chart_container">
+                <div id="map"></div>
+            </div>
+            <div class="story_container">
+                <p class="map_des">
+                    This map shows the geographical distributions and counts of English movies whose score are higher than the average score
+                </p>
+                <br/>
+                <p>
+                    Through observing the data displayed on this map, it is clear that:
+                </p>
+                <ol>
+                    <li>Beyond 90% of the high score English movies are produced by America and the United Kingdom.</li>
+                    <li>Some countries whose mother tongue is not English, such as China and Japan, can also produce high score English movies.</li>
+                </ol>
+                <br/>
+                <p>
+                    <span>
+                        Interaction Tips: 1. Put your mouse on a colored country to check the quantity of high score English movies produced in this country.
+                        2. You can filter the range of the number of high score movies to show on this map.
+                        3. Use the toolbox in the top right corner to check the data used in this chart or download this chart as images.
+                    </span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="section" id="section5">
+        <div class="slide active" id="slide_5_1">
+            <div class="chart_wrapper">
+                <div class="chart_container">
+                    <div id="age_chart"></div>
+                </div>
+                <div class="story_container">
+                    <p class="attention">ATTENTION PLEASE: SLIDE this page LEFT to check another two charts!</p>
+                    <p>In this page, here display three bar charts, You can slide this page left and right to look at another two charts.</p>
+                    <br/>
+                    <p>The first chart displayed on the left shows the average scores given by different age groups of all of the audiences. There are three obvious trends after comparing the width of the bars vertical and horizontal.
+                    </p>
+                    <ol class="ageChart_des">
+                        <li>In any genre, the first group give the highest score, thus we can say people under 18 tend to give a higher score when evaluating movies.</li>
+                        <li>Conversely, the fourth group give the lowest score, thus the people aged above 45 are very strict when giving scores.</li>
+                        <li>Besides, only in the fourth column has a distinctly longest strip, it is reasonable to say that the preference becomes apparent with age.</li>
+                    </ol>
+                    <p>
+                        <span>
+                            Interaction Tips:
+                            1. You can put your mouse on the bars to check the score given by different age groups of a certain genre.
+                            2. You can use the x-axis label as a filter to show/hide age groups.
+                            3. You can use the toolbox in the top right corner to download the chart as an image.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slide" id="slide_5_2">
+            <div class="chart_wrapper">
+                <div class="chart_container">
+                    <div id="female_chart"></div>
+                </div>
+                <div class="story_container">
+                    <div class="femaleChart_des">
+                        <p>
+                            The second bar chart illustrates the average scores of every genre given by female audiences of different age groups.
+                        </p>
+                        <br/>
+                        <p>If we set 7.5 as a boundary score, we can get:</p>
+                        <ol>
+                            <li>Female under 18 years old prefer adventure, mystery and thriller movies.</li>
+                            <li>Female aged 18-29 prefer mystery and music movies.</li>
+                            <li>Female aged 30-44 prefer mystery,  music, romance and sport movies.</li>
+                            <li>Female aged above 45 prefer mystery, romance, sport and thriller movies.</li>
+                        </ol>
+                        <p>Overall, MYSTERY movies are most likely to get high scores among female, and the next three preferred movie genres for women are MUSIC, SPORT and THRILLER.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide" id="slide_5_3">
+            <div class="chart_wrapper">
+                <div class="chart_container">
+                    <div id="male_chart"></div>
+                </div>
+                <div class="story_container">
+                    <div class="maleChart_des">
+                        <p>
+                            The third bar chart illustrates the average scores of every genre given by male audiences of different age groups.
+                        </p>
+                        <br/>
+                        <p>If we set 7.75 as a boundary score, we can get:</p>
+                        <ol>
+                            <li>Male under 18 years old prefer mystery, action, biography and fantasy movies.</li>
+                            <li>Male aged 18-29 prefer mystery, animation and sport movies.</li>
+                            <li>Male aged 30-44 prefer mystery movies.</li>
+                            <li>Male aged above 45 prefer mystery movies.</li>
+                        </ol>
+                        <p>Overall, MYSTERY movies are most likely to get high score among male.</p>
+                        <br/>
+                        <p>
+                            It is worth to mention that The types of movies that female audiences like are significantly more diverse than male.
+                            And to my surprise, in the female audience, sport and thriller get higher average scores than other genres in every age group.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section6">
+        <div class="chart_wrapper">
+            <div class="chart_container">
+                <div id="budget_score"></div>
+            </div>
+            <div class="story_container">
+                <div class="budgetScore_des">
+                    <p>
+                        Next, the scatter plot gives information about the budgets and the scores of all the high score English movies
+                        and using different colors to separate different genres. Each point represents a movie and each color stands for a genre.
+                        Besides, this chart marks the minimum score, the maximum score and the average score of every genre.
+                    </p>
+                    <br/>
+                    <p>
+                        Because the number of data points of some of the genres in high score movies are quite small,
+                        it is unreasonable to speculate the relation between their budgets and scores.
+                        Fortunately, after calculating the linear regression equation of each genre,
+                        there is a relatively strong positive linear relationship between budget and IMDB score of ACTION movies(The p-value of the trend line is 0.02).
+                    </p>
+                    <br/>
+                    <p>
+                        <span>
+                            Interaction Tips:
+                            1. You can use the legend on the left side of the chart panel as a filter to show/highlight/hide some data points to have a clear view of the distribution of data points of particular genres and explore the data yourself.
+                            2. You can use the toolbox in the top right corner to zoom some area of the data points, check the data used in this chart or downloads this chart as an image.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="section" id="section7">-->
+        <!--<div class="chart_wrapper">-->
+            <!--<div class="chart_container">-->
+                <!--<div id="relationship"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>
+
+<script type="text/javascript" src="js/my_script.js"></script>
+
+</body>
+</html>

@@ -38,7 +38,7 @@
             $('#fullpage').fullpage({
                 // sectionsColor: ['#ff5f45', '#0798ec', '#fc6c7c', '#fec401'],
                 //Navigation
-                anchors: ['1stPage','2ndPage','3rdPage','4thPage','5thPage','6thPage'],
+                anchors: ['1stPage','2ndPage','3rdPage','4thPage','5thPage','6thPage','7thPage'],
                 menu: '#menu',
                 lazyLoad: true,
                 navigation: true,
@@ -81,6 +81,7 @@
         <li data-menuanchor="4thPage"><a href="#4thPage">Fourth Page</a></li>
         <li data-menuanchor="5thPage"><a href="#5thPage">Fifth Page</a></li>
         <li data-menuanchor="6thPage"><a href="#6thPage">Sixth Page</a></li>
+        <li data-menuanchor="7thPage"><a href="#7thPage">Seventh Page</a></li>
     </ul>
     <div class="personal_info">
         <p>Hang Su</p>
@@ -119,11 +120,12 @@
                 <p>
                     Think about the movies you watched recent years, you will find that although more and more movies are produced in a year,
                     it is harder to find a movie with high quality.
-                    The line chart on your left hand shows the average IMDB score of movies from 1916 to 2016.
+                    The line chart on your left hand shows the average IMDB score and the number of movies from 1916 to 2016.
                 </p>
                 <br/>
                 <p>
-                   It is clear that the average score slightly decreased within these years.
+                   It is clear that the number of movies dramatically increased with time.
+                    Conversely, the average score slightly decreased within these years.
                     This indicates that the quality of the movies is declining year by year
                     or the audience is becoming more and more strict with the quality.
                 </p>
@@ -301,13 +303,33 @@
             </div>
         </div>
     </div>
-    <!--<div class="section" id="section7">-->
-        <!--<div class="chart_wrapper">-->
-            <!--<div class="chart_container">-->
-                <!--<div id="relationship"></div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+    <div class="section" id="section7">
+        <div class="chart_wrapper">
+            <div class="chart_container">
+                <div id="relationship"></div>
+            </div>
+            <div class="story_container">
+                <div class="relationship_des">
+                    <p>
+                        This relationship force graph shows the collaborative relationship of directors and actors.
+                    </p>
+                    <br/>
+                    <p>
+                        There are two obvious large groups of nodes in this graph (You can check them yourself).
+                        This means if you see a combination of director and actors is in these groups, it is probably a high-quality movie.
+                    </p>
+                    <br/>
+                    <p>
+                        <span>
+                            Interaction Tips:
+                            1. You can put your mouse on a node, the chart will highlight a group of nodes and links of this node, and there will prompt the information of this node.
+                            2. You can drag a group of nodes out of the circle to see the relationship of this group clearly.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="js/my_script.js"></script>

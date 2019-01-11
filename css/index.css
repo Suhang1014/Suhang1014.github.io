@@ -218,9 +218,13 @@ p{
 	text-decoration: underline;
 	color: darkorange;
 }
-#slide_5_1 p,li,span {
-	font-size: 17px;
-	line-height: 17px;
+#section2 p,br,span {
+	font-size: 18px;
+	line-height: 18px;
+}
+#slide_5_1 p,li,br,span {
+	font-size: 16px;
+	line-height: 16px;
 }
 .attention {
 	text-decoration: underline;

@@ -5,16 +5,22 @@ var ysLineChart = echarts.init(document.getElementById('year_score'),'shine');
 $.getJSON('data/year_avgs.json', function (data) {
     var option_ys = {
         title: {
-            text: 'The Trend of Average Score with Time',
+            text: 'The Trend of Average Score & Number with Time',
             x: 'center',
         },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                crossStyle: {
+                    color: '#999'
+                }
+            },
         },
         legend: {
-            data:['IMDB Score'],
-            x: 110,
-            y: 30,
+            data: ['IMDB Score', 'Number of Movies'],
+            left: 340,
+            top: 30,
         },
         toolbox: {
             show: true,
@@ -27,6 +33,7 @@ $.getJSON('data/year_avgs.json', function (data) {
                 restore: {title: 'Restore'},
                 saveAsImage: {title: 'Save as Image'}
             },
+            right: 20,
         },
         dataZoom: {
             show: true,
@@ -49,14 +56,24 @@ $.getJSON('data/year_avgs.json', function (data) {
                 2006.0, 2007.0, 2008.0, 2009.0, 2010.0, 2011.0, 2012.0, 2013.0,
                 2014.0, 2015.0, 2016.0]
         },
-        yAxis: {
-            name: 'Score',
-            type: 'value',
-            axisLabel: {
-                formatter: '{value}'
+        yAxis:[
+            {
+                name: 'Score',
+                type: 'value',
+                position: 'left',
+                axisLabel: {
+                    formatter: '{value}'
+                }
             },
-            min: 4,
-        },
+            {
+                name: 'Number',
+                type: 'value',
+                position: 'right',
+                axisLabel: {
+                    formatter : '{value}'
+                }
+            }
+        ],
         series: [
             {
                 name:'IMDB Score',
@@ -72,9 +89,36 @@ $.getJSON('data/year_avgs.json', function (data) {
                     data: [
                         {type: 'average', name: 'Average Score'}
                     ]
+                },
+                animationDelay: function (idx) {
+                    return idx * 10;
                 }
             },
-        ]
+            {
+                name: 'Number of Movies',
+                type: 'line',
+                data: [1,1,1,1,2,1,1,2,1,1,2,2,2,3,5,1,2,1,1,4,3,3,3,2,1,3,4,4,5,2,3,2,1,3,3,5,8,8,10,8,6,4,11,10,12,11,9,9,9,6,10,16,16,16,24,33,30,22,31,29,26,32,31,33,29,31,34,48,54,70,99,118,134,168,171,188,209,169,214,221,239,204,225,259,229,223,219,236,248,224,105],
+                yAxisIndex: 1,
+                markPoint: {
+                    data: [
+                        {type: 'max', name: 'Max Number'},
+                        {type: 'min', name: 'Min Number'}
+                    ]
+                },
+                markLine: {
+                    data: [
+                        {type: 'average', name: 'Average Number'}
+                    ]
+                },
+                animationDelay: function (idx) {
+                    return idx * 10 + 100;
+                }
+            }
+        ],
+        animationEasing: 'elasticOut',
+        animationDelayUpdate: function (idx) {
+            return idx * 5;
+        }
     };
     ysLineChart.setOption(option_ys);
 });
@@ -92,8 +136,7 @@ $.getJSON('data/num_genres.json', function (data) {
             show: true
         },
         toolbox: {
-            x: 780,
-            y: 'top',
+            right: 20,
             feature: {
                 dataView: {show: true, title: 'Data View'},
                 restore: {show: true, title: 'Switch color'},
@@ -173,8 +216,7 @@ $.getJSON('data/num_country_above_average.json',function (data) {
         },
         toolbox: {
             show : true,
-            x: 780,
-            y: 'top',
+            right: 20,
             feature : {
                 dataView : {show: true, readOnly: true, title: 'Data View'},
                 restore : {show: true, title: 'Restore'},
@@ -257,8 +299,7 @@ $.getJSON('data/average_score_agegroup.json', function (data) {
         },
         toolbox: {
             show : true,
-            x: 780,
-            y: 'top',
+            right: 20,
             feature : {
                 dataView : {show: true, readOnly: true, title: 'Data View'},
                 restore : {show: true, title: 'Restore'},
@@ -415,8 +456,7 @@ $.getJSON('data/average_score_agegroupf.json', function (data) {
         },
         toolbox: {
             show : true,
-            x: 780,
-            y: 'top',
+            right: 20,
             feature : {
                 dataView : {show: true, readOnly: true, title: 'Data View'},
                 restore : {show: true, title: 'Restore'},
@@ -573,8 +613,7 @@ $.getJSON('data/average_score_agegroupm.json', function (data) {
         },
         toolbox: {
             show : true,
-            x: 780,
-            y: 'top',
+            right: 20,
             feature : {
                 dataView : {show: true, readOnly: true, title: 'Data View'},
                 restore : {show: true, title: 'Restore'},
@@ -748,7 +787,7 @@ $.getJSON('data/budget_vs_score.json', function (data) {
         // };
         // dataset.push(subset_line);
     }
-    console.log(dataset);
+    // console.log(dataset);
     option = {
         title : {
             text: 'Budget vs. IMDB_score',
@@ -774,8 +813,7 @@ $.getJSON('data/budget_vs_score.json', function (data) {
         },
         toolbox: {
             show : true,
-            x: 'right',
-            y: 'top',
+            right: 20,
             feature : {
                 dataZoom : {show: true, title: 'Data Zoom'},
                 dataView : {show: true, readOnly: true, title: 'Data View'},
@@ -809,3 +847,64 @@ $.getJSON('data/budget_vs_score.json', function (data) {
 });
 
 //director actor1 relationship
+var relationship = echarts.init(document.getElementById('relationship'));
+relationship.showLoading();
+$.get('data/nodes_test.json', function (data) {
+    relationship.hideLoading();
+    option = {
+        title: {
+            text: 'Relationship Between Directors and Actors',
+            x: 'center',
+        },
+        legend: {
+            data: ['Director','Actor'],
+            top: 30,
+        },
+        tooltip: {},
+        toolbox: {
+            show : true,
+            right: 20,
+            feature : {
+                saveAsImage : {show: true, title: 'Save as Image', type: 'png'}
+            }
+        },
+        series: [{
+            type: 'graph',
+            layout: 'force',
+            animation: false,
+            roam: true,
+            focusNodeAdjacency: true,
+            emphasis: {
+                lineStyle: {
+                    width: 10
+                }
+            },
+            label: {
+                normal: {
+                    show: false,
+                    position: 'right',
+                    formatter: '{b}'
+                }
+            },
+            draggable: true,
+            data: data,
+            categories: [
+                {name:'Director'},
+                {name:'Actor'},
+            ],
+            force: {
+                // initLayout: 'circular'
+                // repulsion: 20,
+                edgeLength: 20,
+                repulsion: 30,
+                gravity: 0.2,
+            },
+            edges: [{"source":"Steve McQueen","target":"Quvenzhan\u00e9 Wallis"},{"source":"Danny Boyle","target":"James Franco"},{"source":"Jonathan Levine","target":"Joseph Gordon-Levitt"},{"source":"Richard Curtis","target":"Tom Hughes"},{"source":"Michael Haneke","target":"Isabelle Huppert"},{"source":"Ben Affleck","target":"Clea DuVall"},{"source":"Richard Linklater","target":"Seamus Davey-Fitzpatrick"},{"source":"Don Hall","target":"Damon Wayans Jr."},{"source":"Alejandro G. I\u00f1\u00e1rritu","target":"Emma Stone"},{"source":"Darren Aronofsky","target":"Natalie Portman"},{"source":"Richard Linklater","target":"Ellar Coltrane"},{"source":"Steven Spielberg","target":"Tom Hanks"},{"source":"Anthony Russo","target":"Robert Downey Jr."},{"source":"Anthony Russo","target":"Scarlett Johansson"},{"source":"Paul Greengrass","target":"Tom Hanks"},{"source":"Ryan Coogler","target":"Sylvester Stallone"},{"source":"Jean-Marc Vall\u00e9e","target":"Matthew McConaughey"},{"source":"Matt Reeves","target":"Gary Oldman"},{"source":"Tim Miller","target":"Ryan Reynolds"},{"source":"Pierre Coffin","target":"Steve Carell"},{"source":"Quentin Tarantino","target":"Leonardo DiCaprio"},{"source":"Nicolas Winding Refn","target":"Ryan Gosling"},{"source":"Doug Liman","target":"Tom Cruise"},{"source":"David Ayer","target":"Jake Gyllenhaal"},{"source":"Alex Garland","target":"Elina Alminas"},{"source":"Rob Reiner","target":"Madeline Carroll"},{"source":"David Ayer","target":"Brad Pitt"},{"source":"David Fincher","target":"Patrick Fugit"},{"source":"Alfonso Cuar\u00f3n","target":"Phaldut Sharma"},{"source":"James Gunn","target":"Bradley Cooper"},{"source":"Spike Jonze","target":"Scarlett Johansson"},{"source":"Dean DeBlois","target":"Gerard Butler"},{"source":"Dean DeBlois","target":"Gerard Butler"},{"source":"Martin Scorsese","target":"Chlo\u00eb Grace Moretz"},{"source":"Christopher Nolan","target":"Leonardo DiCaprio"},{"source":"Pete Docter","target":"Amy Poehler"},{"source":"Christopher Nolan","target":"Matthew McConaughey"},{"source":"Matthew Vaughn","target":"Elizabeth McGovern"},{"source":"Peter Berg","target":"Jerry Ferrara"},{"source":"George Miller","target":"Tom Hardy"},{"source":"Woody Allen","target":"Kurt Fuller"},{"source":"Bennett Miller","target":"Philip Seymour Hoffman"},{"source":"Wes Anderson","target":"Bruce Willis"},{"source":"Alexander Payne","target":"Devin Ratray"},{"source":"Dan Gilroy","target":"Jake Gyllenhaal"},{"source":"Stephen Frears","target":"Steve Coogan"},{"source":"Denis Villeneuve","target":"Hugh Jackman"},{"source":"Rupert Wyatt","target":"James Franco"},{"source":"Ron Howard","target":"Chris Hemsworth"},{"source":"Edgar Wright","target":"Anna Kendrick"},{"source":"Martin Scorsese","target":"Leonardo DiCaprio"},{"source":"Denis Villeneuve","target":"Edgar Arreola"},{"source":"David O. Russell","target":"Jennifer Lawrence"},{"source":"Sam Mendes","target":"Albert Finney"},{"source":"Sam Mendes","target":"Albert Finney"},{"source":"Tom McCarthy","target":"Billy Crudup"},{"source":"J.J. Abrams","target":"Benedict Cumberbatch"},{"source":"F. Gary Gray","target":"Aldis Hodge"},{"source":"Nathan Greno","target":"Brad Garrett"},{"source":"Michel Hazanavicius","target":"B\u00e9r\u00e9nice Bejo"},{"source":"Joss Whedon","target":"Chris Hemsworth"},{"source":"Joss Whedon","target":"Chris Hemsworth"},{"source":"Adam McKay","target":"Ryan Gosling"},{"source":"Brian Percival","target":"Emily Watson"},{"source":"Christopher Nolan","target":"Tom Hardy"},{"source":"Josh Boone","target":"Shailene Woodley"},{"source":"David O. Russell","target":"Christian Bale"},{"source":"David Fincher","target":"Robin Wright"},{"source":"Wes Anderson","target":"Bill Murray"},{"source":"Tate Taylor","target":"Emma Stone"},{"source":"Peter Jackson","target":"Aidan Turner"},{"source":"Peter Jackson","target":"Aidan Turner"},{"source":"Francis Lawrence","target":"Jennifer Lawrence"},{"source":"Morten Tyldum","target":"Benedict Cumberbatch"},{"source":"Tom Hooper","target":"Colin Firth"},{"source":"Phil Lord","target":"Morgan Freeman"},{"source":"Mark Osborne","target":"Jeff Bridges"},{"source":"Ridley Scott","target":"Matt Damon"},{"source":"Stephen Chbosky","target":"Logan Lerman"},{"source":"Alejandro G. I\u00f1\u00e1rritu","target":"Leonardo DiCaprio"},{"source":"David Fincher","target":"Andrew Garfield"},{"source":"James Marsh","target":"Eddie Redmayne"},{"source":"Ben Affleck","target":"Jeremy Renner"},{"source":"Martin Scorsese","target":"Leonardo DiCaprio"},{"source":"Lee Unkrich","target":"Tom Hanks"},{"source":"Ethan Coen","target":"Matt Damon"},{"source":"Eli Craig","target":"Katrina Bowden"},{"source":"Gavin O'Connor","target":"Tom Hardy"},{"source":"Damien Chazelle","target":"J.K. Simmons"},{"source":"Rich Moore","target":"Jack McBrayer"},{"source":"Bryan Singer","target":"Jennifer Lawrence"},{"source":"Matthew Vaughn","target":"Jennifer Lawrence"}],
+        }]
+    };
+
+    relationship.setOption(option);
+});
+
+
+
